@@ -73,18 +73,18 @@
                         <option class="" v-for="state in estados">{{state}}</option>
                     </select>
                     <div class="d-flex flex-row justify-content-evenly m-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" id="flexSwitchCheckDefault" v-model="checkboxes" name="R" type="checkbox" value="R">
-                                <label class="form-check-label" for="flexSwitchCheckDefault" for="R">Republicans</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" id="flexSwitchCheckDefault" v-model="checkboxes" name="D" type="checkbox" value="D">
-                                <label class="form-check-label" for="flexSwitchCheckDefault" for="D">Democrats</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" id="flexSwitchCheckDefault" v-model="checkboxes" name="ID" type="checkbox" value="ID">
-                                <label class="form-check-label" for="flexSwitchCheckDefault" for="ID">Independents</label>
-                            </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="R" v-model="checkboxes" name="R" type="checkbox" value="R">
+                            <label class="form-check-label" for="R">Republicans</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="D" v-model="checkboxes" name="D" type="checkbox" value="D">
+                            <label class="form-check-label" for="D">Democrats</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" id="ID" v-model="checkboxes" name="ID" type="checkbox" value="ID">
+                            <label class="form-check-label" for="ID">Independents</label>
+                        </div>
                     </div>
                 </form>
                 <table class="table table-responsive table-hover d-flex flex-column align-center mt-3 overflow-auto">
