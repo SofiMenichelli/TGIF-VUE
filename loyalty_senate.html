@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Senate</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div id="app" class="container">
+        <header class="d-flex flex-row justify-content-between align-items-end ">
+            <img src="img/logotgif.png" alt="Logo">
+            <a class="" href="mailto:info@tgif.net"><img src="./img/mail.png" alt="sobre">info@tgif.net</a>
+        </header>
+        <nav class="navbar navbar-expand-lg bg-dark mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand text-primary" href="index.html">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-primary dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="true">Congress 113</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="house.html">House</a></li>
+                                <li><a class="dropdown-item" href="senate.html">Senate</a></li>
+        
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-primary dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="true">Attendance</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="atten_house.html">House</a></li>
+                                <li><a class="dropdown-item" href="atten_senate.html">Senate</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-primary dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="true">Party Loyalty</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="loyalty_house.html">House</a></li>
+                                <li><a class="dropdown-item" href="loyalty_senate.html">Senate</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+        
+                </div>
+            </div>
+        </nav>
+        <main>
+            <div class="d-flex flex-row justify-content-between">
+                <div class="col-6">
+                    <h2>Party Loyalty</h2>
+                    <p>Those who consider themselves to be strong partisans, strong Democrats and strong Republicans respectively, tend to be
+                    the most faithful in voting for their party's nominee for office and legislation that backs their party's agenda.</p>
+                </div>
+                <div class="col-4 m-5">
+                    <h3>Senate at a glance</h3>
+                    <table class="table table-responsive table-hover d-flex flex-column align-center glance">
+                        <thead class="thead-dark">
+                            <tr class="d-flex">
+                                <th class="col">Party</th>
+                                <th class="col">N° of Reps</th>
+                                <th class="col">% Voted w/ Party</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr class="d-flex">
+                                <td class="col">Republicans</td>
+                                <td class="col">{{partidoR.length}}</td>
+                                <td class="col">{{(sumVotesR / (sumVotesID + sumVotesR + sumVotesD) * 100).toFixed(2)}} %</td>
+                            </tr>
+                            <tr class="d-flex">
+                                <td class="col">Democrats</td>
+                                <td class="col">{{partidoD.length}}</td>
+                                <td class="col">{{(sumVotesD / (sumVotesID + sumVotesR + sumVotesD) * 100).toFixed(2)}} %</td>
+                            </tr>
+                            <tr class="d-flex">
+                                <td class="col">Independents</td>
+                                <td class="col">{{partidoID.length}}</td>
+                                <td class="col">{{(sumVotesID / (sumVotesID + sumVotesR + sumVotesD) * 100).toFixed(2)}} %</td>
+                            </tr>
+                            <tr class="d-flex">
+                                <td class="col">Total</td>
+                                <td class="col">{{partidoID.length + partidoR.length + partidoD.length}}</td>
+                                <td class="col">100%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex flex-row justify-content-around mb-5">
+                <div class="col-5">
+                    <h3 class="text-center mt-5">Least Loyal(Bottom 10% of Party)</h3>
+                    <table class="table table-responsive table-hover d-flex flex-column align-center mt-3 overflow-auto">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col">Name</th>
+                                <th class="col">N° Party Votes</th>
+                                <th class="col">% Party Votes</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="member in leastLoyalty">
+                            <tr class="d-flex">
+                                <th class="col"><a v-bind:href="member.url" target="_blank">{{member.first_name}} {{member.middle_name || ""}}
+                                        {{member.last_name}}</a></th>
+                                <th class="col">{{Math.round(member.votes_with_party_pct * member.total_votes / 100)}}</th>
+                                <th class="col">{{member.votes_with_party_pct}} %</th>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-5">
+                    <h3 class="text-center mt-5">Most Loyal(Top 10% of Party)</h3>
+                    <table class="table table-responsive table-hover d-flex flex-column align-center mt-3 overflow-auto">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col">Name</th>
+                                <th class="col">N° Party Votes</th>
+                                <th class="col">% Party Votes</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="member in mostLoyalty">
+                            <tr class="d-flex">
+                                <th class="col"><a v-bind:href="member.url" target="_blank">{{member.first_name}} {{member.middle_name || ""}}
+                                        {{member.last_name}}</a></th>
+                                <th class="col">{{Math.round(member.votes_with_party_pct * member.total_votes / 100)}}</th>
+                                <th class="col">{{member.votes_with_party_pct}} %</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <footer class="d-flex justify-content-around rounded-pill border border-dark bg-primary text-white m-5 p-2">
+            <span class="text-center">&copy; 2016 TGIF | All rights reserved</span>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./vue.js"></script>
+</body>
+
+</html>
